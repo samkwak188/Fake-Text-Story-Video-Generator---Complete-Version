@@ -1,0 +1,1122 @@
+/* Container */
+.container {
+    width: 414px;
+    background: #ffffff !important;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s ease-in-out;
+    transform-origin: top center;
+    height: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid #E5E5EA;
+    background: #F2F2F7;
+    width: 100%;
+    box-sizing: border-box;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.back-button {
+    font-size: 32px;
+    color: #007AFF;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.header-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 120px;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-image:hover::after {
+    content: 'Change';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 12px;
+    padding: 2px 0;
+}
+
+.header-text {
+    font-size: 16px;
+    font-weight: 500;
+    min-width: 50px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    cursor: text;
+    text-align: center;
+    display: inline-block;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.header-text:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.header-text:focus {
+    background-color: rgba(0,0,0,0.05);
+    outline: none;
+}
+
+.header-text:empty::before {
+    content: 'John Doe';
+    color: #999;
+}
+
+.header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.video-button {
+    color: #007AFF;
+    cursor: pointer;
+}
+
+.message-container {
+    padding: 12px 8px;
+    overflow-y: auto;
+    background: #ffffff;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    height: calc(100vh - 350px);
+    max-height: 400px;
+    min-height: 200px;
+    position: static !important;
+    z-index: auto !important;
+}
+
+.dynamic-container {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+    flex-grow: 1;
+    padding: 0 4px;
+}
+
+/* Message Groups */
+.message-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: message-appear 0.3s ease-out forwards;
+}
+
+@keyframes message-appear {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Individual Messages */
+.message {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 75%;
+    margin: 6px 4px;
+    padding: 10px 14px;
+    position: relative;
+    word-wrap: break-word;
+    transition: all 0.3s ease-in-out;
+    transform-origin: bottom;
+    will-change: transform, opacity;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    margin-bottom: 5px;
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 2147483647; /* Maximum z-index value */
+}
+
+/* Sender Messages (Blue) */
+.message.sender {
+    align-self: flex-end;
+    margin-left: auto;
+    margin-right: 4px;
+    background-color: #0A84FF;
+    color: #fff;
+    border-radius: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Tail for sender messages */
+.message.sender::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -1px;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    background: #0A84FF;
+    border-bottom-left-radius: 15px;
+}
+
+.message.sender::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -1px;
+    right: -10px;
+    width: 10px;
+    height: 20px;
+    background: #ffffff;
+    border-bottom-left-radius: 10px;
+}
+
+/* Receiver Messages (Gray) */
+.message.receiver {
+    align-self: flex-start;
+    margin-right: auto;
+    margin-left: 4px;
+    background-color: #E9E9EB;
+    color: #000;
+    border-radius: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Tail for receiver messages */
+.message.receiver::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -1px;
+    left: -8px;
+    height: 20px;
+    width: 20px;
+    background: #E9E9EB;
+    border-bottom-right-radius: 15px;
+}
+
+.message.receiver::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -1px;
+    left: -10px;
+    width: 10px;
+    height: 20px;
+    background: #ffffff;
+    border-bottom-right-radius: 10px;
+}
+
+/* Message Spacing */
+.message + .message {
+    margin-top: 2px;
+}
+
+/* Input Area */
+.imessage-input {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #E5E5EA;
+    border-radius: 20px;
+    padding: 6px 12px;
+    margin: 8px 10px;
+    flex-shrink: 0;
+}
+
+.imessage-input input {
+    flex: 1;
+    border: none;
+    padding: 8px;
+    font-size: 16px;
+    outline: none;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+/* Generate Button */
+.generate-button {
+    background: linear-gradient(135deg, #007aff, #ff3b30);  /* Blue to red gradient */
+    color: #ffffff;
+    width: calc(100% - 20px);
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 20px 10px;
+    transition: all 0.3s ease;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;  /* Added animation */
+}
+
+.generate-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.generate-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+}
+
+/* Add gradient animation */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Message Animations */
+.message {
+    animation: message-resize 0.3s ease-out;
+}
+
+@keyframes message-resize {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Scrollbar Styling (Optional) */
+.message-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
+.message-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,0.4);
+}
+
+#senderToggle {
+    background: #0A84FF;  /* Start with sender color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 0 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#senderToggle.receiver {
+    background: #E9E9EB;
+    color: black;
+}
+
+/* Message options menu positioning */
+.message-options {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 2147483647;
+    display: none;
+}
+
+.message-options button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: #000;
+    font-family: Arial, sans-serif;
+}
+
+.message-options button:hover {
+    background: #f5f5f5;
+}
+
+.message-options button.delete {
+    color: #ff3b30;
+}
+
+.message-options button.add-above,
+.message-options button.add-below {
+    color: #007AFF;
+}
+
+.message.editing {
+    position: relative;
+}
+
+.message.editing:focus {
+    outline: 2px solid #007AFF;
+}
+
+/* Add global font */
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: #f0f0f0;  /* Fallback color */
+    background-image: url('/static/images/bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;  /* Add this to ensure no white margins */
+    padding: 0; /* Add this to ensure no white padding */
+}
+
+/* Override any specific font declarations to ensure consistency */
+.header-text {
+    font-family: Arial, sans-serif;
+}
+
+.message {
+    font-family: Arial, sans-serif;
+}
+
+.imessage-input input {
+    font-family: Arial, sans-serif;
+}
+
+.message-options button {
+    font-family: Arial, sans-serif;
+}
+
+.voice-settings {
+    margin: 0 auto 10px;
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.voice-settings h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Updated voice-selector container styles */
+.voice-selector-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 10px 0;
+}
+
+.voice-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.voice-selector label {
+    font-size: 12px;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+/* Sender voice label (blue background) */
+.voice-selector label[for="senderVoice"] {
+    background-color: rgba(10, 132, 255, 0.1); /* Light blue background */
+    color: #0A84FF; /* iMessage blue */
+}
+
+/* Receiver voice label (gray background) */
+.voice-selector label[for="receiverVoice"] {
+    background-color: rgba(233, 233, 235, 0.5); /* Light gray background */
+    color: #666; /* Darker gray text */
+}
+
+.voice-selector select {
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: white;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.voice-selector select:focus {
+    outline: none;
+    border-color: #007AFF;
+}
+
+.sound-effect-submenu {
+    position: fixed;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 2147483647;
+    overflow: hidden;
+}
+
+.sound-effect-submenu .effect-option {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: #000;
+    font-family: Arial, sans-serif;
+}
+
+.sound-effect-submenu .effect-option:hover {
+    background: #f5f5f5;
+}
+
+.video-selection {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.video-selection h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.video-previews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+}
+
+.video-option {
+    width: 100%;
+    text-align: center;
+}
+
+.preview-video {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.video-option input[type="radio"]:checked + label + .preview-video,
+.video-option input[type="radio"]:checked ~ .preview-video {
+    border-color: #007AFF;
+}
+
+.video-option label {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Add styles for the settings wrapper */
+.settings-wrapper {
+    position: relative;
+    z-index: 1;
+    width: 414px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Add styles for API key section */
+.api-key-section {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.api-key-input {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    font-size: 12px;
+}
+
+.fetch-voices-btn {
+    padding: 6px 12px;
+    background-color: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.fetch-voices-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Update layout styles */
+.page-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.chat-section {
+    width: 414px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    margin-top: 14px;
+}
+
+/* Unified styling for both guide sections */
+.guide-section, .steps-guide {
+    position: fixed;
+    width: 500px;  /* Increased from 500px to 550px */
+    height: calc(100vh - 70px);
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 0;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    top: 35px;
+    box-sizing: border-box;
+}
+
+.guide-section {
+    left: max(20px, calc(50% - 900px + 20px));
+    padding-top: 40px;  /* Adjust this value to move content up (decrease) or down (increase) */
+}
+
+.steps-guide {
+    right: max(20px, calc(50% - 650px + 20px));
+    
+}
+
+/* Updated shared header styling for both guide sections */
+.guide-section h1, .steps-guide h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Remove any individual h2 styling that might conflict */
+.steps-guide h2 {
+    font-size: 28px !important;  /* Force consistency */
+    margin-top: 0;  /* Ensure both headers start at same height */
+}
+
+/* Enhanced list styling */
+.guide-section ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.guide-section li {
+    margin-bottom: 12px;
+    padding-left: 24px;
+    position: relative;
+    color: #555;
+}
+
+.guide-section li:before {
+    content: '•';
+    color: #007AFF;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+/* Enhanced step styling */
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 15px;  /* Add space between number and text */
+}
+
+.step:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.step-number {
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 5px;  /* Additional spacing */
+}
+
+/* Scrollbar styling */
+.guide-section, .steps-guide {
+    scrollbar-width: thin;
+    scrollbar-color: #007AFF rgba(0, 0, 0, 0.1);
+}
+
+.guide-section::-webkit-scrollbar, .steps-guide::-webkit-scrollbar {
+    width: 6px;
+}
+
+.guide-section::-webkit-scrollbar-track, .steps-guide::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.guide-section::-webkit-scrollbar-thumb, .steps-guide::-webkit-scrollbar-thumb {
+    background: #007AFF;
+    border-radius: 3px;
+}
+
+/* Enhanced paragraph styling */
+.guide-section p, .steps-guide p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+/* Important text styling */
+.guide-section strong {
+    color: #FF3B30;
+    font-weight: 600;
+    padding: 2px 4px;
+    background: rgba(255, 59, 48, 0.1);
+    border-radius: 4px;
+}
+
+/* Responsive animations */
+@media screen and (max-width: 1500px) {
+    .guide-section, .steps-guide {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 1250px) {
+    .guide-section {
+        left: 20px;
+        opacity: 0.95;
+    }
+}
+
+/* Media query for mobile screens - updated with fade */
+@media screen and (max-width: 900px) {
+    .guide-section {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-20px);
+    }
+    
+    .chat-section {
+        margin: 0 auto;
+    }
+}
+
+/* Ensure smooth transitions */
+.guide-section {
+    transition: 
+        opacity 0.5s ease-in-out,
+        visibility 0.5s ease-in-out,
+        transform 0.5s ease-in-out,
+        left 0.5s ease-in-out;
+}
+
+/* Add styling for important text */
+.guide-section strong {
+    color: #FF3B30; /* Apple's red color */
+}
+
+/* Style the list items */
+.guide-section ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.guide-section li {
+    margin-bottom: 8px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Add styles for steps guide */
+.steps-guide {
+    position: fixed;
+    right: max(20px, calc(50% - 800px + 20px));
+    top: 35px;
+    width: 500px;
+    padding: 10px 25px;
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 0;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s ease-in-out;
+    transform: translateX(0);
+    padding-top: 50px;  /* Increase top padding to push content down */
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step-number {
+    background: #007AFF;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    padding-top: 2px;
+}
+
+/* Add responsive behavior */
+@media screen and (max-width: 1500px) {
+    .steps-guide {
+        opacity: 0.95;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .steps-guide {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(20px);
+    }
+}
+
+/* Ensure smooth transitions */
+.steps-guide {
+    transition: 
+        opacity 0.5s ease-in-out,
+        visibility 0.5s ease-in-out,
+        transform 0.5s ease-in-out,
+        right 0.5s ease-in-out;
+}
+
+/* Add spacing for steps content */
+.steps-guide .step:first-child {
+    margin-top: 50px;  /* Add space after the header */
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Picture Message Styles */
+.message.picture {
+    padding: 0;
+    background: none;
+    max-width: 80%;
+    display: inline-block;
+    position: relative;
+}
+
+.message.picture img {
+    max-width: 200px;  /* Updated max width */
+    max-height: 300px; /* Updated max height */
+    width: auto;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    object-fit: contain;
+}
+
+.message.sender.picture img {
+    border-bottom-right-radius: 4px;
+}
+
+.message.receiver.picture img {
+    border-bottom-left-radius: 4px;
+}
+
+/* Remove speech tails for picture messages */
+.message.picture::before,
+.message.picture::after {
+    display: none;
+}
+
+/* Picture Message Tail */
+.message.sender.picture::before {
+    background: #0A84FF;
+    bottom: -1px;
+    right: -8px;
+}
+
+.message.receiver.picture::before {
+    background: #E9E9EB;
+    bottom: -1px;
+    left: -8px;
+}
+
+/* Sound Effects Submenu */
+.sound-effects-submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px;
+    margin-left: 8px;
+    z-index: 1000;
+}
+
+.sound-effect-option {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.sound-effect-option:hover {
+    background: #f0f0f0;
+}
+
+.sound-effect-option .checkmark {
+    margin-left: 8px;
+    color: #007AFF;
+    display: none;
+}
+
+.sound-effect-option.selected .checkmark {
+    display: inline;
+}
+
+/* Specific positioning for picture message options */
+.message.picture .message-options {
+    right: auto;
+    left: -210px;
+    top: 0;
+}
+
+/* Message positioning and stacking */
+.message {
+    position: relative;
+    z-index: 2147483647;
+}
+
+/* All menus - main options menu, picture menu, and sound effects submenu */
+.message-options,
+.sound-effect-submenu {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 2147483647;
+}
+
+/* Specific positioning for picture message options */
+.message.picture .message-options {
+    right: auto;
+    left: -210px;
+    top: 0;
+}
+
+/* Sound effect submenu specific styling */
+.sound-effect-submenu {
+    position: fixed;
+    z-index: 2147483647;
+    overflow: hidden;
+}
+
+/* Theme settings styling */
+.theme-settings {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    text-align: center; /* Center the content */
+}
+
+.theme-settings h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #333;
+    text-align: center; /* Ensure the title is centered */
+}
+
+.theme-selector {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Center the radio buttons */
+}
+
+.theme-selector label {
+    margin-left: 5px;
+}
+
+/* Light theme (default) */
+.container {
+    background: #ffffff;
+}
+
+/* Message tail background (default light theme) */
+.message.sender::after,
+.message.receiver::after {
+    background: #ffffff;
+}
+
+/* Dark theme styles */
+.container.dark-theme {
+    background: #000000;
+}
+
+.container.dark-theme .header {
+    background: #1c1c1e;
+    border-bottom-color: #2c2c2e;
+}
+
+.container.dark-theme .header-text {
+    color: #ffffff;
+}
+
+.container.dark-theme .message-container {
+    background: #000000;
+}
+
+/* Dark theme message tail background */
+.container.dark-theme .message.sender::after,
+.container.dark-theme .message.receiver::after {
+    background: #000000;
+}
+
+/* Dark theme receiver message color */
+.container.dark-theme .message.receiver {
+    background-color: #2c2c2e;
+    color: #ffffff; /* Add white text color for receiver messages in dark theme */
+}
+
+/* Dark theme receiver message tail color */
+.container.dark-theme .message.receiver::before {
+    background: #2c2c2e;
+} 

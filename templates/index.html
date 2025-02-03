@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Text Story Video Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/imessage.css') }}?v={{ range(1, 999999) | random }}" type="text/css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+    <div class="page-container">
+        <!-- Guide Section -->
+        <div class="guide-section">
+            <h1>Fake Text Story Video Generator</h1>
+            <p>Welcome to GoViral Wizard's Text Story Generator! Create engaging text message videos with realistic conversations.</p>
+            
+            <p>With our generator, you can:</p>
+            <ul>
+                <li>Create messages for both sender and receiver</li>
+                <li>Edit messages freely at any time</li>
+                <li>Add fun sound effects to individual messages</li>
+                <li>Choose from various voice actors for both participants</li>
+                <li>Select your preferred background video style</li>
+            </ul>
+            
+            <p><strong>Important:</strong> To use voice features, you'll need an ElevenLabs account. Enter your API key and ensure you have the "Adam" and "Natalie" voices added to your voice library.</p>
+            
+            <p>Ready to create your viral text story? Start typing your messages and let your creativity flow!</p>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="container" id="chatContainer">
+                <div class="header">
+                    <div class="header-left">
+                        <div class="back-button">‹</div>
+                    </div>
+                    <div class="header-center">
+                        <div class="profile-image" id="profileImageContainer">
+                            <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile" id="profileImage">
+                            <input type="file" id="profileUpload" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="header-text" id="headerName" contenteditable="true" spellcheck="false">
+                            John Doe
+                        </div>
+                    </div>
+                    <div class="header-right">
+                    </div>
+                </div>
+                <div class="message-container" id="messageContainer">
+                    <div class="dynamic-container">
+                        <!-- Messages will be added here -->
+                    </div>
+                </div>
+                <div class="input-area">
+                    <div class="imessage-input">
+                        <input type="text" id="messageInput" placeholder="iMessage">
+                        <button id="senderToggle">⇄</button>
+                        <button id="addPicture">📷</button>
+                        <input type="file" id="pictureUpload" accept="image/*" style="display: none;">
+                        <button id="addMessage">Send</button>
+                    </div>
+                    <button class="generate-button" id="generateBtn">Generate Video</button>
+                </div>
+            </div>
+            
+            <!-- Settings wrapper -->
+            <div class="settings-wrapper">
+                <div class="theme-settings">
+                    <h3>Choose your theme:</h3>
+                    <div class="theme-selector">
+                        <input type="radio" id="lightTheme" name="theme" value="light" checked>
+                        <label for="lightTheme">Light Theme</label>
+                        <input type="radio" id="darkTheme" name="theme" value="dark">
+                        <label for="darkTheme">Dark Theme</label>
+                    </div>
+                </div>
+                <div class="voice-settings">
+                    <h3>Choose Voice Actors</h3>
+                    <div class="api-key-section">
+                        <input type="text" id="elevenLabsKey" placeholder="Enter ElevenLabs API Key" class="api-key-input">
+                    </div>
+                    <div class="voice-selector-container">
+                        <div class="voice-selector">
+                            <label for="senderVoice">Sender Voice:</label>
+                            <select id="senderVoice">
+                                <option value="male">Male (Adam)</option>
+                                <option value="female">Female (Natalie)</option>
+                                <option value="brian">Male (Brian)</option>
+                                <option value="laura">Female (Laura)</option>
+                            </select>
+                        </div>
+                        <div class="voice-selector">
+                            <label for="receiverVoice">Receiver Voice:</label>
+                            <select id="receiverVoice">
+                                <option value="female">Female (Natalie)</option>
+                                <option value="male">Male (Adam)</option>
+                                <option value="brian">Male (Brian)</option>
+                                <option value="laura">Female (Laura)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-selection">
+                    <h3>Select Background Video</h3>
+                    <div class="video-previews">
+                        <div class="video-option">
+                            <video 
+                                src="https://res.cloudinary.com/dicyxkb4t/video/upload/v1738448713/ejqmkubzg1qdxzkc7fm4.mp4" 
+                                loop 
+                                muted 
+                                class="preview-video"
+                                onmouseover="this.play()" 
+                                onmouseout="this.pause(); this.currentTime = 0;"
+                            ></video>
+                            <input type="radio" name="background" value="background" checked>
+                            <label>Style 1</label>
+                        </div>
+                        <div class="video-option">
+                            <video 
+                                src="https://res.cloudinary.com/dicyxkb4t/video/upload/v1738448707/f1bhluhc6si77uapdawe.mp4" 
+                                loop 
+                                muted 
+                                class="preview-video"
+                                onmouseover="this.play()" 
+                                onmouseout="this.pause(); this.currentTime = 0;"
+                            ></video>
+                            <input type="radio" name="background" value="background_1">
+                            <label>Style 2</label>
+                        </div>
+                        <div class="video-option">
+                            <video 
+                                src="https://res.cloudinary.com/dicyxkb4t/video/upload/v1738448708/dxo2rlb7kckps0fnfvv4.mp4" 
+                                loop 
+                                muted 
+                                class="preview-video"
+                                onmouseover="this.play()" 
+                                onmouseout="this.pause(); this.currentTime = 0;"
+                            ></video>
+                            <input type="radio" name="background" value="background_2">
+                            <label>Style 3</label>
+                        </div>
+                        <div class="video-option">
+                            <video 
+                                src="https://res.cloudinary.com/dicyxkb4t/video/upload/v1738448706/pytgss2oi9idgch1xhrw.mp4" 
+                                loop 
+                                muted 
+                                class="preview-video"
+                                onmouseover="this.play()" 
+                                onmouseout="this.pause(); this.currentTime = 0;"
+                            ></video>
+                            <input type="radio" name="background" value="background_3">
+                            <label>Style 4</label>
+                        </div>
+                        <div class="video-option">
+                            <video 
+                                src="https://res.cloudinary.com/dicyxkb4t/video/upload/v1738448705/y4k8pbdv6gwi06fo3feg.mp4" 
+                                loop 
+                                muted 
+                                class="preview-video"
+                                onmouseover="this.play()" 
+                                onmouseout="this.pause(); this.currentTime = 0;"
+                            ></video>
+                            <input type="radio" name="background" value="background_4">
+                            <label>Style 5</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this after the chat-section div -->
+        <div class="steps-guide">
+            <h2>How to Use</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <p>Type your message in the input box and press Enter or click Send</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <p>Click on any message to edit, add sound effects, or manage message options</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <p>Click on profile image to upload your own profile image. Click on header name to edit your name.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <p>Enter your ElevenLabs API key and click "Fetch Voices" to set up voice actors</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <p>Select voice actors for both sender and receiver</p>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <p>Choose your preferred background video style</p>
+            </div>
+            <div class="step">
+                <div class="step-number">7</div>
+                <p>Click "Generate Video" to create your text message video</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let messages = [];
+        let isSender = true;
+        let isGenerating = false;
+
+        const messageInput = document.getElementById('messageInput');
+        const messageContainer = document.getElementById('messageContainer');
+        const chatContainer = document.getElementById('chatContainer');
+        const senderToggle = document.getElementById('senderToggle');
+        const addMessageBtn = document.getElementById('addMessage');
+        const generateBtn = document.getElementById('generateBtn');
+
+        // Add picture upload functionality
+        const addPictureBtn = document.getElementById('addPicture');
+        const pictureUpload = document.getElementById('pictureUpload');
+
+        addPictureBtn.addEventListener('click', () => {
+            pictureUpload.value = '';
+            pictureUpload.click();
+        });
+
+        pictureUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    addPictureMessage(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function addPictureMessage(imageSrc) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isSender ? 'sender' : 'receiver'} picture`;
+            messageDiv.setAttribute('data-id', Date.now());
+            
+            const img = document.createElement('img');
+            
+            // Create a temporary image to get the natural dimensions
+            const tempImg = new Image();
+            tempImg.onload = function() {
+                // Calculate dimensions while maintaining aspect ratio
+                const maxWidth = 200;  // Updated max width
+                const maxHeight = 300; // Updated max height
+                let width = this.width;
+                let height = this.height;
+                
+                if (width > maxWidth || height > maxHeight) {
+                    const ratio = Math.min(maxWidth / width, maxHeight / height);
+                    width = width * ratio;
+                    height = height * ratio;
+                }
+                
+                // Set the dimensions on the actual image
+                img.style.width = `${width}px`;
+                img.style.height = `${height}px`;
+            };
+            
+            img.src = imageSrc;
+            tempImg.src = imageSrc;
+            
+            messageDiv.appendChild(img);
+            
+            const dynamicContainer = document.querySelector('.dynamic-container');
+            dynamicContainer.appendChild(messageDiv);
+            
+            updateMessagesArray();
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        // Function to update messages array and ensure synchronization
+        function updateMessagesArray() {
+            const dynamicContainer = document.querySelector('.dynamic-container');
+            messages = Array.from(dynamicContainer.children).map(messageDiv => {
+                const message = {
+                    id: messageDiv.getAttribute('data-id') || Date.now(),
+                    is_sender: messageDiv.classList.contains('sender'),
+                    soundEffect: messageDiv.getAttribute('data-sound-effect') || null,
+                    type: messageDiv.classList.contains('picture') ? 'picture' : 'text'
+                };
+                
+                if (message.type === 'picture') {
+                    message.text = messageDiv.querySelector('img').src;
+                } else {
+                    message.text = messageDiv.textContent.trim();
+                }
+                
+                return message;
+            }).filter(msg => msg.text);
+            
+            console.log('Updated messages array:', messages);
+        }
+
+        // Modify addMessage function
+        function addMessage() {
+            const text = messageInput.value.trim();
+            if (!text) return;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isSender ? 'sender' : 'receiver'}`;
+            messageDiv.textContent = text;
+            messageDiv.setAttribute('data-id', Date.now());
+            
+            const dynamicContainer = document.querySelector('.dynamic-container');
+            dynamicContainer.appendChild(messageDiv);
+
+            updateMessagesArray(); // Update messages array after adding
+            
+            messageInput.value = '';
+            messageInput.focus();
+            scrollToBottom();
+        }
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addMessage();
+        });
+
+        senderToggle.addEventListener('click', () => {
+            isSender = !isSender;
+            senderToggle.classList.toggle('receiver');
+        });
+
+        addMessageBtn.addEventListener('click', addMessage);
+
+        // Add this after your existing variable declarations (but before the chatContainer declaration)
+        const themeInputs = document.querySelectorAll('input[name="theme"]');
+
+        // Add theme switching functionality
+        themeInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                const isDark = e.target.value === 'dark';
+                chatContainer.classList.toggle('dark-theme', isDark);
+                localStorage.setItem('chatTheme', e.target.value);
+            });
+        });
+
+        // Load saved theme preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('chatTheme') || 'light';
+            const themeInput = document.querySelector(`input[value="${savedTheme}"]`);
+            if (themeInput) {
+                themeInput.checked = true;
+                chatContainer.classList.toggle('dark-theme', savedTheme === 'dark');
+            }
+        });
+
+        // Update the generateBtn click handler to properly include theme information
+        generateBtn.addEventListener('click', async () => {
+            if (isGenerating) return;
+            isGenerating = true;
+            generateBtn.textContent = 'Generating...';
+            
+            try {
+                updateMessagesArray();
+                
+                const currentProfileImage = document.getElementById('profileImage').src;
+                const currentHeaderName = document.getElementById('headerName').textContent.trim();
+                const currentTheme = document.querySelector('input[name="theme"]:checked').value;
+                
+                const requestData = {
+                    messages: messages,
+                    profileImage: currentProfileImage,
+                    headerName: currentHeaderName,
+                    theme: currentTheme,  // This ensures the theme choice is sent to app.py
+                    voiceSettings: {
+                        apiKey: document.getElementById('elevenLabsKey').value,
+                        voiceMap: voiceMap,
+                        sender: document.getElementById('senderVoice').value,
+                        receiver: document.getElementById('receiverVoice').value
+                    },
+                    backgroundVideo: document.querySelector('input[name="background"]:checked').value
+                };
+                
+                console.log('Sending request with theme:', requestData.theme); // Debug log
+                
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Video generation failed');
+                }
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'output_video.mp4';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate video: ' + error.message);
+            } finally {
+                generateBtn.textContent = 'Generate Video';
+                isGenerating = false;
+            }
+        });
+        
+        // Initialize scroll position when page loads
+        window.addEventListener('load', scrollToBottom);
+
+        // Message editing functionality
+        let currentOptionsMenu = null;
+
+        function createOptionsMenu(isPicture) {
+            const menu = document.createElement('div');
+            menu.className = 'message-options';
+            menu.innerHTML = `
+                <button class="edit">${isPicture ? 'Swap Picture' : 'Edit'}</button>
+                <button class="switch">Switch Side</button>
+                <button class="add-textbox-above">Add Textbox Above</button>
+                <button class="add-textbox-below">Add Textbox Below</button>
+                <button class="sound-effect">Sound Effects</button>
+                <button class="delete">Delete</button>
+            `;
+            return menu;
+        }
+
+        function hideOptionsMenu() {
+            if (currentOptionsMenu) {
+                currentOptionsMenu.remove();
+                currentOptionsMenu = null;
+            }
+        }
+
+        function createSoundEffectsSubmenu(currentEffect) {
+            const submenu = document.createElement('div');
+            submenu.className = 'sound-effects-submenu';
+            
+            const effects = ['None', 'vineboom', 'notification', 'rizz', 'imessage_text'];
+            
+            effects.forEach(effect => {
+                const option = document.createElement('div');
+                option.className = `sound-effect-option ${currentEffect === effect ? 'selected' : ''}`;
+                option.textContent = effect;
+                
+                const checkmark = document.createElement('span');
+                checkmark.className = 'checkmark';
+                checkmark.textContent = '✓';
+                option.appendChild(checkmark);
+                
+                option.addEventListener('click', () => {
+                    // Remove selection from all options
+                    submenu.querySelectorAll('.sound-effect-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    // Select the clicked option
+                    option.classList.add('selected');
+                });
+                
+                submenu.appendChild(option);
+            });
+            
+            return submenu;
+        }
+
+        function handleMessageClick(e) {
+            const messageDiv = e.target.closest('.message');
+            if (!messageDiv) return;
+
+            hideOptionsMenu();
+
+            const optionsMenu = createOptionsMenu(messageDiv.classList.contains('picture'));
+
+            // Append the menu to the body instead of the message
+            document.body.appendChild(optionsMenu);
+            currentOptionsMenu = optionsMenu;
+
+            // Calculate the message's position relative to the viewport
+            const messageRect = messageDiv.getBoundingClientRect();
+
+            // Position the menu
+            optionsMenu.style.display = 'block';
+            optionsMenu.style.width = '200px';
+
+            if (messageDiv.classList.contains('picture')) {
+                // For pictures, position menu to the left
+                optionsMenu.style.left = `${messageRect.left - 210}px`;
+                optionsMenu.style.top = `${messageRect.top}px`;
+            } else {
+                // For text messages, position below
+                optionsMenu.style.left = `${messageRect.left}px`;
+                optionsMenu.style.top = `${messageRect.bottom}px`;
+            }
+
+            // Handle picture swap
+            if (messageDiv.classList.contains('picture')) {
+                optionsMenu.querySelector('.edit').onclick = (e) => {
+                    e.stopPropagation();
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.value = '';
+                    input.onchange = (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                const img = messageDiv.querySelector('img');
+                                const newImg = new Image();
+                                
+                                newImg.onload = function() {
+                                    // Calculate dimensions while maintaining aspect ratio
+                                    const maxWidth = 200;
+                                    const maxHeight = 300;
+                                    let width = this.width;
+                                    let height = this.height;
+                                    
+                                    if (width > maxWidth || height > maxHeight) {
+                                        const ratio = Math.min(maxWidth / width, maxHeight / height);
+                                        width = width * ratio;
+                                        height = height * ratio;
+                                    }
+                                    
+                                    // Update the existing img element
+                                    img.style.width = `${width}px`;
+                                    img.style.height = `${height}px`;
+                                    img.src = e.target.result;
+                                    
+                                    // Force the message container to adjust to new content
+                                    messageDiv.style.width = 'auto';
+                                    messageDiv.style.height = 'auto';
+                                    
+                                    updateMessagesArray();
+                                };
+                                
+                                newImg.src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    };
+                    input.click();
+                    hideOptionsMenu();
+                };
+            } else {
+                optionsMenu.querySelector('.edit').onclick = (e) => {
+                    e.stopPropagation();
+                    messageDiv.contentEditable = true;
+                    messageDiv.focus();
+                    hideOptionsMenu();
+                    
+                    messageDiv.addEventListener('input', () => {
+                        updateMessagesArray();
+                    });
+                    
+                    messageDiv.onblur = () => {
+                        messageDiv.contentEditable = false;
+                        updateMessagesArray();
+                    };
+                };
+            }
+
+            // Handle switch side
+            optionsMenu.querySelector('.switch').onclick = (e) => {
+                e.stopPropagation();
+                const isSenderMessage = messageDiv.classList.contains('sender');
+                messageDiv.classList.toggle('sender');
+                messageDiv.classList.toggle('receiver');
+                
+                const index = Array.from(messageDiv.parentNode.children).indexOf(messageDiv);
+                if (index !== -1 && messages[index]) {
+                    messages[index].is_sender = !isSenderMessage;
+                }
+                hideOptionsMenu();
+            };
+
+            // Handle add textbox above
+            optionsMenu.querySelector('.add-textbox-above').onclick = (e) => {
+                e.stopPropagation();
+                const newMessageDiv = document.createElement('div');
+                newMessageDiv.className = `message ${messageDiv.classList.contains('sender') ? 'sender' : 'receiver'}`;
+                newMessageDiv.textContent = 'New message';
+                newMessageDiv.setAttribute('data-id', Date.now());
+                messageDiv.parentNode.insertBefore(newMessageDiv, messageDiv);
+                updateMessagesArray();
+                hideOptionsMenu();
+            };
+
+            // Handle add textbox below
+            optionsMenu.querySelector('.add-textbox-below').onclick = (e) => {
+                e.stopPropagation();
+                const newMessageDiv = document.createElement('div');
+                newMessageDiv.className = `message ${messageDiv.classList.contains('sender') ? 'sender' : 'receiver'}`;
+                newMessageDiv.textContent = 'New message';
+                newMessageDiv.setAttribute('data-id', Date.now());
+                messageDiv.parentNode.insertBefore(newMessageDiv, messageDiv.nextSibling);
+                updateMessagesArray();
+                hideOptionsMenu();
+            };
+
+            // Handle sound effects
+            const soundEffectButton = optionsMenu.querySelector('.sound-effect');
+            let soundEffectSubmenu = null;
+            
+            soundEffectButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                if (soundEffectSubmenu) {
+                    soundEffectSubmenu.remove();
+                    soundEffectSubmenu = null;
+                    return;
+                }
+                
+                const currentEffect = messageDiv.getAttribute('data-sound-effect');
+                soundEffectSubmenu = createSoundEffectsSubmenu(currentEffect);
+                
+                // Position the submenu
+                const buttonRect = soundEffectButton.getBoundingClientRect();
+                soundEffectSubmenu.style.position = 'absolute';
+                soundEffectSubmenu.style.left = `${buttonRect.right}px`;
+                soundEffectSubmenu.style.top = `${buttonRect.top}px`;
+                
+                document.body.appendChild(soundEffectSubmenu);
+                
+                // Handle submenu clicks
+                soundEffectSubmenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const selectedOption = e.target.closest('.sound-effect-option');
+                    if (selectedOption) {
+                        const selectedEffect = selectedOption.textContent.replace('✓', '').trim();
+                        messageDiv.setAttribute('data-sound-effect', selectedEffect);
+                        updateMessagesArray();
+                    }
+                });
+            });
+
+            // Handle delete
+            optionsMenu.querySelector('.delete').onclick = (e) => {
+                e.stopPropagation();
+                messageDiv.remove();
+                updateMessagesArray();
+                hideOptionsMenu();
+            };
+
+            // Add click outside to close functionality
+            const clickOutsideHandler = (e) => {
+                if (!optionsMenu.contains(e.target) && 
+                    !messageDiv.contains(e.target) &&
+                    (!soundEffectSubmenu || !soundEffectSubmenu.contains(e.target))) {
+                    hideOptionsMenu();
+                    if (soundEffectSubmenu) {
+                        soundEffectSubmenu.remove();
+                        soundEffectSubmenu = null;
+                    }
+                    document.removeEventListener('click', clickOutsideHandler);
+                }
+            };
+            
+            setTimeout(() => {
+                document.addEventListener('click', clickOutsideHandler);
+            }, 0);
+        }
+
+        messageContainer.addEventListener('click', handleMessageClick);
+
+        // Add a global voice map variable
+        const voiceMap = {
+            'male': 'pNInz6obpgDQGcFmaJgB',    // Adam's voice ID
+            'female': '21m00Tcm4TlvDq8ikWAM',  // Natalie's voice ID
+            'brian': 'Yko7PKHZNXotIFUBG7I9',   // Brian's voice ID
+            'laura': 'EXAVITQu4vr4xnSDxMaL'    // Laura's voice ID
+        };
+
+        // Add profile picture change functionality
+        const profileImageContainer = document.getElementById('profileImageContainer');
+        const profileImage = document.getElementById('profileImage');
+        const profileUpload = document.getElementById('profileUpload');
+
+        profileImageContainer.addEventListener('click', () => {
+            profileUpload.click();
+        });
+
+        profileUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profileImage.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Always use default profile picture on page load
+        profileImage.src = "{{ url_for('static', filename='images/profile.jpg') }}";
+    </script>
+</body>
+</html>

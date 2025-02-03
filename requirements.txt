@@ -1,0 +1,10 @@
+flask==2.0.1
+flask-cors==3.0.10
+pillow==10.4.0
+gtts==2.2.3
+numpy==1.25.0
+selenium==4.15.2
+webdriver-manager==4.0.1 
+Werkzeug==2.2.3
+gunicorn
+moviepy==2.1.2
